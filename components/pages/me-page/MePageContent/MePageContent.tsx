@@ -1,22 +1,30 @@
 import React, { FC } from 'react';
-import { Icon } from '@chakra-ui/react';
-import { LayoutContent } from '~/components/shared/LayoutContent';
-import { LayoutContentHeaderProps } from '~/components/shared/LayoutContentHeader';
-import FriendsIcon from '~icons/friends.svg';
-import { Header } from './components/Header';
+import { OnlineFriends } from './components/OnlineFriends';
+import { AllFriends } from './components/AllFriends';
+import { PendingRequests } from './components/PendingRequests';
+import { AddFriend } from './components/AddFriend';
+import { useRouter } from 'next/router';
+import { ME_CONTENT_IDS } from '../MePage/MePage';
 
-export interface MePageContentProps {}
-
-const HEADER_PROPS: LayoutContentHeaderProps = {
-    label: 'Друзья',
-    labelIcon: (
-        <Icon w="22px" h="22px">
-            <FriendsIcon />
-        </Icon>
-    ),
-    children: <Header />,
+const getContentByContentId = (contentId: ME_CONTENT_IDS): FC<any> => {
+    switch (contentId) {
+        case ME_CONTENT_IDS.ALL:
+            return AllFriends;
+        case ME_CONTENT_IDS.PENDING:
+            return PendingRequests;
+        case ME_CONTENT_IDS.ADD:
+            return AddFriend;
+        default:
+            return OnlineFriends;
+    }
 };
 
-export const MePageContent: FC<MePageContentProps> = () => {
-    return <LayoutContent headerProps={HEADER_PROPS} content={<div>INNER</div>} />;
+export const MePageContent: FC = () => {
+    const {
+        query: { contentId },
+    } = useRouter();
+
+    const Content = getContentByContentId(contentId as ME_CONTENT_IDS);
+
+    return <Content />;
 };

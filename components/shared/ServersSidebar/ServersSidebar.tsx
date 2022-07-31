@@ -1,8 +1,6 @@
 import React, { FC, ReactElement } from 'react';
 import { Box, BoxProps, Center, Divider, Tooltip } from '@chakra-ui/react';
 import ServersList from './components/ServersList';
-
-import { useRouter } from 'next/router';
 import { DiscordLogoNavigationButton } from './components/DiscordLogoNavigationButton';
 
 export const serversSidebarBoxProps: BoxProps = {
@@ -14,8 +12,6 @@ export interface ServersSidebarProps {
 }
 
 const ServersSidebar: FC<ServersSidebarProps> = ({ isDiscordLogoActive = true }): ReactElement => {
-    const router = useRouter();
-
     return (
         <Box
             height="100%"
