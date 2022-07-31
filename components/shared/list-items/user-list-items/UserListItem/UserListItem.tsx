@@ -1,23 +1,11 @@
-import React, { FC, ReactElement } from 'react';
-import { Avatar, Flex, Text } from '@chakra-ui/react';
+import React, { FC } from 'react';
+import { Avatar } from '@chakra-ui/react';
+import { ListItem, ListItemProps } from '../../ListItem';
 
-type Content = ReactElement<any>;
-
-export interface UserListItemProps {
-    center?: Content;
-    end?: Content;
-}
+export interface UserListItemProps extends Omit<ListItemProps, 'start'> {}
 
 export const UserListItem: FC<UserListItemProps> = ({ center, end }) => {
-    return (
-        <Flex p="5px 8px" align="center" h="42px">
-            <Flex width="100%" gap="12px" align="center">
-                <Avatar w={'32px'} h="32px" />
+    const start = <Avatar w={'32px'} h="32px" />;
 
-                {center}
-
-                {end}
-            </Flex>
-        </Flex>
-    );
+    return <ListItem start={start} center={center} end={end} />;
 };

@@ -1,20 +1,32 @@
-import React, { FC } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Box, BoxProps } from '@chakra-ui/react';
 import { px } from '~/helpers';
-import { UserInfoListItem } from '../list-items/user-list-items/UserInfoListItem';
+import { ReactContentSlot } from '~/types/react';
+import { LAYOUT_HEADER_HEIGHT_PX } from '../Layout';
 
 export const SIDEBAR_WIDTH = 240;
-const SIDEBAR_WIDTH_PX = px(SIDEBAR_WIDTH);
+export const SIDEBAR_WIDTH_PX = px(SIDEBAR_WIDTH);
 
-export interface PageSidebarProps extends BoxProps {}
+export const PAGE_SIDEBAR_CONTENT_PADDING = 8;
+export const PAGE_SIDEBAR_CONTENT_PADDING_PX = px(PAGE_SIDEBAR_CONTENT_PADDING);
 
-export const PageSidebar: FC<PageSidebarProps> = (props) => {
+export interface PageSidebarProps extends BoxProps {
+    header: ReactContentSlot;
+    content: ReactContentSlot;
+}
+
+export const PageSidebar: FC<PageSidebarProps> = ({ header, content, ...otherProps }) => {
     return (
-        <Box height="100%" width={SIDEBAR_WIDTH_PX} bg="blackAlpha.400" {...props}>
-            <UserInfoListItem
-                topText="Roman"
-                bottomText="Playing GTA VAAAAAAAAAAAAVAAAAAAAAAAAAVAAAAAAAAAAAA"
-            />
+        <Box height="100%" width={SIDEBAR_WIDTH_PX} bg="blackAlpha.300" {...otherProps}>
+            <Box
+                padding={PAGE_SIDEBAR_CONTENT_PADDING_PX}
+                height={LAYOUT_HEADER_HEIGHT_PX}
+                borderBottom="2px solid"
+                borderColor="whiteAlpha.400">
+                {header}
+            </Box>
+
+            {content}
         </Box>
     );
 };
