@@ -1,8 +1,9 @@
-import type { NextPage } from 'next'
-import Layout from '~/components/shared/Layout'
+import type { NextPage } from 'next';
+import Layout from '~/components/shared/Layout';
+import { PageSidebar } from '~/components/shared/PageSidebar';
 
 const Home: NextPage = () => {
-  return <Layout sidebar={<div>Sidebar</div>} content={<div>Content</div>} />
-}
+    return <Layout sidebar={<PageSidebar></PageSidebar>} content={<div>Content</div>} />;
+};
 
-export default Home
+export default Home;
