@@ -1,13 +1,21 @@
 import React, { FC, ReactElement } from 'react';
 import { Box, BoxProps, Center, Divider, Tooltip } from '@chakra-ui/react';
 import ServersList from './components/ServersList';
-import { DiscordLogoButton } from '~/components/buttons/DiscordLogoButton';
+
+import { useRouter } from 'next/router';
+import { DiscordLogoNavigationButton } from './components/DiscordLogoNavigationButton';
 
 export const serversSidebarBoxProps: BoxProps = {
     padding: '12px',
 };
 
-const ServersSidebar: FC = (): ReactElement => {
+export interface ServersSidebarProps {
+    isDiscordLogoActive?: boolean;
+}
+
+const ServersSidebar: FC<ServersSidebarProps> = ({ isDiscordLogoActive = true }): ReactElement => {
+    const router = useRouter();
+
     return (
         <Box
             height="100%"
@@ -15,9 +23,7 @@ const ServersSidebar: FC = (): ReactElement => {
             borderColor="whiteAlpha.400"
             bg="blackAlpha.600"
             {...serversSidebarBoxProps}>
-            <Tooltip hasArrow label="Главная">
-                <DiscordLogoButton aria-label="Discord logo" />
-            </Tooltip>
+            <DiscordLogoNavigationButton />
 
             <Center my="8px">
                 <Divider width="80%" />
