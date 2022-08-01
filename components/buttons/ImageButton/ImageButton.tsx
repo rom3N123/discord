@@ -18,22 +18,15 @@ export const baseCss: CSSObject = {
 
 export const hoverTransitionCss: CSSObject = { borderRadius: '25%' };
 
-export const getCss = (params: Pick<ImageButtonProps, 'isWithTransition'>): CSSObject => {
-    const { isWithTransition } = params;
-
-    return {
-        ...baseCss,
-    };
-};
-
 export const ImageButton = forwardRef<HTMLButtonElement, ImageButtonProps>(
     ({ sx, _hover, isWithTransition = true, ...otherProps }, ref) => {
-        const css = getCss({ isWithTransition });
         const hoverCss = {
             ..._hover,
             ...(isWithTransition && hoverTransitionCss),
         };
 
-        return <IconButton ref={ref} _hover={hoverCss} sx={{ ...css, ...sx }} {...otherProps} />;
+        return (
+            <IconButton ref={ref} _hover={hoverCss} sx={{ ...baseCss, ...sx }} {...otherProps} />
+        );
     },
 );

@@ -5,6 +5,7 @@ import { PendingRequests } from './components/PendingRequests';
 import { AddFriend } from './components/AddFriend';
 import { useRouter } from 'next/router';
 import { ME_CONTENT_IDS } from '../MePage/MePage';
+import { Box } from '@chakra-ui/react';
 
 const getContentByContentId = (contentId: ME_CONTENT_IDS): FC<any> => {
     switch (contentId) {
@@ -26,5 +27,9 @@ export const MePageContent: FC = () => {
 
     const Content = getContentByContentId(contentId as ME_CONTENT_IDS);
 
-    return <Content />;
+    return (
+        <Box padding="16px 30px">
+            <Content />
+        </Box>
+    );
 };

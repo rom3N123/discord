@@ -15,9 +15,9 @@ const ServersList: FC<ServersListProps> = () => {
 
     return (
         <Flex direction="column" gap="8px">
-            {servers.map(({ id }) => {
+            {servers.map(({ id }, index) => {
                 return (
-                    <Link href={`/channels/${id}`}>
+                    <Link key={index} href={`/channels/${id}`}>
                         <SidebarServerButton
                             isActive={channelId === id.toString()}
                             key={id}
