@@ -10,9 +10,13 @@ export const EndButtons = () => {
 
     return (
         <Flex onClick={onContainerClick} gap="5px" align="center">
-            <MessageIconButton aria-label="Send message" borderRadius="50%" />
+            <Tooltip hasArrow label="Сообщение">
+                <MessageIconButton aria-label="Отправить сообщение" borderRadius="50%" />
+            </Tooltip>
 
-            <ThreeDotsButton aria-label="More" borderRadius="50%" />
+            <Tooltip hasArrow label="Ещё">
+                <ThreeDotsButton aria-label="Ещё" borderRadius="50%" />
+            </Tooltip>
         </Flex>
     );
 };

@@ -10,6 +10,7 @@ const listItemProps: ListItemProps = {
     w: '100%',
     h: '60px',
     borderRadius: '6px',
+    cursor: 'pointer',
     transition: 'all .2s ease',
     _hover: {
         bg: 'whiteAlpha.300',
