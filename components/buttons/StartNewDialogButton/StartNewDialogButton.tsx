@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import { Icon, IconButton, IconButtonProps } from '@chakra-ui/react';
-import StartNewDialogIcon from '~icons/start-new-dialog.svg';
+import { ReactComponent as StartNewDialogIcon } from '~icons/start-new-dialog.svg';
 
 export const StartNewDialogButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, ref) => {
     return (

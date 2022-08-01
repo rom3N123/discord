@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, Icon, ButtonProps, Flex, Button, ListItemProps } from '@chakra-ui/react';
 import { ListItem } from '~/components/shared/list-items/ListItem';
-import FriendsIcon from '~icons/friends.svg';
+import { ReactComponent as FriendsIcon } from '~icons/friends.svg';
 
 const START = (
     <Flex align="center" gap="12px">
