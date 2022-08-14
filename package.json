@@ -16,6 +16,10 @@
         "@emotion/react": "^11",
         "@emotion/styled": "^11",
         "@hookform/resolvers": "^2.9.7",
+        "@trpc/client": "^9.27.0",
+        "@trpc/next": "^9.27.0",
+        "@trpc/react": "^9.27.0",
+        "@trpc/server": "^9.27.0",
         "animejs": "^3.2.1",
         "axios": "^0.27.2",
         "date-fns": "^2.29.1",
@@ -27,9 +31,12 @@
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-hook-form": "^7.34.0",
+        "react-query": "3",
         "react-spinners": "^0.13.4",
         "socket.io-client": "^4.5.1",
-        "yup": "^0.32.11"
+        "superjson": "^1.9.1",
+        "yup": "^0.32.11",
+        "zod": "^3.18.0"
     },
     "devDependencies": {
         "@svgr/webpack": "^6.3.1",
