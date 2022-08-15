@@ -7,7 +7,8 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "test": "jest --watch"
+        "test": "jest --watch",
+        "generate-client": "prisma generate --data-proxy"
     },
     "dependencies": {
         "@chakra-ui/icons": "^2.0.4",
