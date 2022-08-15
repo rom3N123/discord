@@ -3,6 +3,7 @@ import { Link, Box, Text, Flex } from '@chakra-ui/react';
 import { SubmitHandler } from 'react-hook-form';
 import { colors } from '~/theme/colors';
 import NextLink from 'next/link';
+import { trpc } from '~/utils/trpc';
 
 export interface AuthFormProps {
     title: string;
@@ -23,6 +24,16 @@ export const AuthForm: FC<AuthFormProps> = ({
     redirectLinkTitle,
     redirectLinkHref,
 }) => {
+    const { mutate, data } = trpc.useMutation(['me.add']);
+
+    console.log({ data });
+
+    const onButtonClick = async () => {
+        const response = await mutate();
+
+        console.log({ response });
+    };
+
     return (
         <Box
             borderRadius="5px"
@@ -33,6 +44,7 @@ export const AuthForm: FC<AuthFormProps> = ({
             width="100%"
             as="form"
             onSubmit={onSubmit}>
+            <button onClick={onButtonClick}>create</button>
             <Box mb="20px">
                 <Text fontSize="25px" fontWeight="700" textAlign="center">
                     {title}
