@@ -2,11 +2,7 @@ import * as trpc from '@trpc/server';
 import * as trpcNext from '@trpc/server/adapters/next';
 import { meRouter } from '~/server/routers/me';
 
-export const appRouter = trpc.router().query('hello', {
-    resolve() {
-        return { hello: true };
-    },
-});
+export const appRouter = trpc.router().merge('me.', meRouter);
 
 export type AppRouter = typeof appRouter;
 
