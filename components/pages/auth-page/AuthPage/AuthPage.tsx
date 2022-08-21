@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, useEffect } from 'react';
 import AuthPageBg from '~icons/auth-page-bg.svg';
 import { Box } from '@chakra-ui/react';
 
