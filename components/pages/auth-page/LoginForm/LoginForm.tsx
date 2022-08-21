@@ -1,8 +1,13 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { Button, Flex } from '@chakra-ui/react';
+import { Button, Flex, Box, Text } from '@chakra-ui/react';
 import { AuthForm } from '../AuthForm';
-import { AuthFormInput } from '../AuthForm/AuthFormInput';
+import { trpc } from '~/utils/trpc';
+import { userStore } from '~/store/user.store';
+import { useHookFormContext } from '~/contexts/HookFormContext/useHookFormContext';
+import { LoginByCredentialsSchema } from '~/server/schemas/auth';
+import { HookFormOnSubmit } from '~/types/hook-form';
+import { HookFormInput } from '~/components/form-control/HookFormInput';
+import { useRouter } from 'next/router';
 
 export interface LoginFormFields {
     email: string;
@@ -10,10 +15,23 @@ export interface LoginFormFields {
 }
 
 export const LoginForm = () => {
-    const { register, handleSubmit } = useForm<LoginFormFields>();
+    const { push } = useRouter();
 
-    const onSubmit = (data: LoginFormFields) => {
-        console.log(data);
+    const { mutate, error, isLoading } = trpc.useMutation(['auth.loginByCredentials'], {
+        onSuccess({ user }) {
+            userStore.setUser(user);
+        },
+        onError({ data }) {
+            if (data?.code === 'UNAUTHORIZED') {
+                push('/auth/login');
+            }
+        },
+    });
+
+    const { handleSubmit } = useHookFormContext<LoginByCredentialsSchema>();
+
+    const onSubmit: HookFormOnSubmit<typeof handleSubmit> = credentials => {
+        mutate(credentials);
     };
 
     return (
@@ -24,18 +42,37 @@ export const LoginForm = () => {
             redirectLinkTitle="Зарегистрироваться"
             redirectLinkHref="/auth/register"
             onSubmit={handleSubmit(onSubmit)}>
-            <Flex direction="column" gap="20px">
-                <AuthFormInput type="email" placeholder="Адрес электронной почты" />
+            <Box>
+                {error && (
+                    <Text color="red.500" textAlign="center">
+                        {error.message}
+                    </Text>
+                )}
+                <Flex direction="column" gap="20px">
+                    <HookFormInput<LoginByCredentialsSchema>
+                        isDisabled={isLoading}
+                        name="email"
+                        label="Email"
+                        type="email"
+                    />
 
-                <AuthFormInput type="password" placeholder="Пароль" />
+                    <HookFormInput<LoginByCredentialsSchema>
+                        isDisabled={isLoading}
+                        name="password"
+                        label="Пароль"
+                        type="password"
+                    />
 
-                <Button
-                    bg="whiteAlpha.800"
-                    color="blackAlpha.700"
-                    _hover={{ bg: 'whiteAlpha.700' }}>
-                    Вход
-                </Button>
-            </Flex>
+                    <Button
+                        isLoading={isLoading}
+                        type="submit"
+                        bg="whiteAlpha.800"
+                        color="blackAlpha.700"
+                        _hover={{ bg: 'whiteAlpha.700' }}>
+                        Вход
+                    </Button>
+                </Flex>
+            </Box>
         </AuthForm>
     );
 };

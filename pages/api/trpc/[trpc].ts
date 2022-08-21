@@ -1,12 +1,13 @@
-import * as trpc from '@trpc/server';
 import * as trpcNext from '@trpc/server/adapters/next';
-import { meRouter } from '~/server/routers/auth';
+import { authRouter } from '~/server/routers/auth';
+import { createRouter, createContext } from '~/server/context';
+import { usersRouter } from '~/server/routers/users';
 
-export const appRouter = trpc.router().merge('auth.', meRouter);
+export const appRouter = createRouter().merge('auth.', authRouter).merge('users.', usersRouter);
 
 export type AppRouter = typeof appRouter;
 
 export default trpcNext.createNextApiHandler({
     router: appRouter,
-    createContext: () => null,
+    createContext,
 });

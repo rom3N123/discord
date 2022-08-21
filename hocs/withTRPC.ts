@@ -12,12 +12,19 @@ const getBaseUrl = () => {
 };
 
 const withTRPC = trpcHoc<AppRouter>({
-    config({ ctx }) {
-        const url = getBaseUrl();
-
+    config() {
         if (isOnClientSide()) {
+            const token = localStorage.getItem('accessToken');
+
+            const headers: Record<string, string> = {};
+
+            if (token) {
+                headers.Authorization = `Bearer ${token}`;
+            }
+
             return {
                 url: '/api/trpc',
+                headers,
             };
         }
 

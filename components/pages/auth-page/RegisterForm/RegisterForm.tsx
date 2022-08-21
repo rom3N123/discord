@@ -1,14 +1,22 @@
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
+import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { HookFormInput } from '~/components/form-control/HookFormInput';
 import { useHookFormContext } from '~/contexts/HookFormContext/useHookFormContext';
-import { AuthForm } from './AuthForm';
+import { AuthForm } from '../AuthForm';
 import { RegisterSchema } from '~/server/schemas/auth';
 import { HookFormOnSubmit } from '~/types/hook-form';
 import { trpc } from '~/utils/trpc';
+import { userStore } from '~/store/user.store';
 
-export const ConnectedAuthForm = () => {
-    const { mutate, error, isLoading } = trpc.useMutation(['auth.register']);
+export const RegisterForm = () => {
+    const { mutate, error, isLoading } = trpc.useMutation(['auth.register'], {
+        onSuccess({ user, token }) {
+            localStorage.setItem('accessToken', token);
+            userStore.setUser(user);
+        },
+    });
+
+    console.log({ error });
 
     const { handleSubmit } = useHookFormContext<RegisterSchema>();
 
@@ -35,6 +43,7 @@ export const ConnectedAuthForm = () => {
                         isDisabled={isLoading}
                         name="email"
                         label="Email"
+                        type="email"
                     />
                     <HookFormInput<RegisterSchema> isDisabled={isLoading} name="name" label="Имя" />
                     <HookFormInput<RegisterSchema>
