@@ -1,5 +1,5 @@
-import { CSSObject, IconButton, IconButtonProps, Tooltip } from '@chakra-ui/react';
-import React, { FC, forwardRef, ReactElement } from 'react';
+import { CSSObject, IconButton, IconButtonProps } from '@chakra-ui/react';
+import React, { forwardRef } from 'react';
 import { px } from '~/helpers';
 
 export interface ImageButtonProps extends IconButtonProps {

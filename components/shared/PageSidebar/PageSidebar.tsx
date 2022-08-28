@@ -1,8 +1,9 @@
-import React, { FC, ReactElement } from 'react';
-import { Box, BoxProps } from '@chakra-ui/react';
+import React, { FC } from 'react';
+import { Box, BoxProps, Flex } from '@chakra-ui/react';
 import { px } from '~/helpers';
 import { ReactContentSlot } from '~/types/react';
 import { LayoutItemHeader } from '../LayoutItemHeader';
+import { UserControl } from '../controls/UserControl';
 
 export const SIDEBAR_WIDTH = 240;
 export const SIDEBAR_WIDTH_PX = px(SIDEBAR_WIDTH);
@@ -17,10 +18,17 @@ export interface PageSidebarProps extends BoxProps {
 
 export const PageSidebar: FC<PageSidebarProps> = ({ header, content, ...otherProps }) => {
     return (
-        <Box height="100%" width={SIDEBAR_WIDTH_PX} bg="blackAlpha.300" {...otherProps}>
+        <Flex
+            direction="column"
+            height="100%"
+            width={SIDEBAR_WIDTH_PX}
+            bg="blackAlpha.300"
+            {...otherProps}>
             <LayoutItemHeader padding={PAGE_SIDEBAR_CONTENT_PADDING_PX}>{header}</LayoutItemHeader>
 
-            {content}
-        </Box>
+            <Box flexGrow="1">{content}</Box>
+
+            <UserControl />
+        </Flex>
     );
 };
